@@ -4,7 +4,7 @@
   "description": "Functional React Native module for authentication between a client and the keycloak server.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "_postinstall": "husky install && yarn set version berry && yarn plugin import workspace-tools"
   },
   "repository": {
     "type": "git",
@@ -50,5 +50,5 @@
   "peerDependencies": {
     "react-native-keychain": "^8.1.1"
   },
-  "packageManager": "yarn@3.6.0"
+  "packageManager": "yarn@3.6.1"
 }
