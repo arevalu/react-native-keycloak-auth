@@ -1,16 +1,18 @@
 {
   "name": "react-native-keycloak-auth",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Functional React Native module for authentication between a client and the keycloak server.",
   "main": "src/index.js",
   "scripts": {
-    "_postinstall": "husky install && yarn set version berry && yarn plugin import workspace-tools"
+    "_postinstall": "husky install && yarn set version berry && yarn plugin import workspace-tools",
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx --max-warnings=0 --cache"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arevalu/react-native-keycloak-auth.git"
   },
   "keywords": [
+    "react-native",
     "auth",
     "login",
     "keycloak",
@@ -30,19 +32,24 @@
   },
   "homepage": "https://github.com/arevalu/react-native-keycloak-auth#readme",
   "devDependencies": {
+    "@babel/core": "7.22.5",
+    "@babel/eslint-parser": "7.22.5",
+    "@babel/preset-env": "7.22.5",
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
     "@react-native-async-storage/async-storage": "1.18.2",
-    "babel-eslint": "10.1.0",
     "base-64": "1.0.0",
     "eslint": "8.44.0",
     "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
-    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-native": "4.0.0",
+    "eslint-plugin-unicorn": "47.0.0",
     "husky": "8.0.3",
+    "lint-staged": "13.2.3",
+    "prettier": "2.8.8",
     "query-string": "8.1.0",
     "react-native": "0.72.1",
     "react-native-keychain": "8.1.1",
