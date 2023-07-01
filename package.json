@@ -1,6 +1,6 @@
 {
-  "name": "react-native-keycloak-plugin",
-  "version": "2.0.2",
+  "name": "react-native-keycloak-auth",
+  "version": "1.0.0",
   "description": "Functional React Native module for authentication between a client and the keycloak server.",
   "main": "src/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lucataglia/react-native-login-keycloak.git"
+    "url": "git+https://github.com/arevalu/react-native-keycloak-auth.git"
   },
   "keywords": [
     "auth",
@@ -22,13 +22,13 @@
     "token"
   ],
   "author": {
-    "name": "Luca Tagliabue"
+    "name": "Luciana Arévalo"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lucataglia/react-native-login-keycloak/issues"
+    "url": "https://github.com/arevalu/react-native-keycloak-auth/issues"
   },
-  "homepage": "https://github.com/lucataglia/react-native-login-keycloak#readme",
+  "homepage": "https://github.com/arevalu/react-native-keycloak-auth#readme",
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
     "base-64": "^1.0.0",
@@ -49,5 +49,6 @@
   },
   "peerDependencies": {
     "react-native-keychain": "^8.1.1"
-  }
+  },
+  "packageManager": "yarn@3.6.0"
 }
