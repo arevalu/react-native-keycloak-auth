@@ -1,10 +1,9 @@
 import { decode as atob } from 'base-64';
 import * as qs from 'query-string';
 import { v4 } from 'uuid';
-import TokenStorage from './TokenStorage';
+import TokenStorage from './token-storage';
 
-
-const decodeToken = (token) => {
+const decodeToken = token => {
   let str = token.split('.')[1];
 
   str = str.replace('/-/g', '+');
@@ -22,7 +21,7 @@ const decodeToken = (token) => {
       throw new Error('Invalid token');
   }
 
-  str = (`${str}===`).slice(0, str.length + (str.length % 4));
+  str = `${str}===`.slice(0, str.length + (str.length % 4));
   str = str.replace(/-/g, '+').replace(/_/g, '/');
 
   str = decodeURIComponent(escape(atob(str)));
@@ -38,11 +37,19 @@ const getRealmURL = (realm, authServerUrl) => {
 
 const getLoginURL = (conf, scope) => {
   const {
-    realm, redirectUri, resource, kcIdpHint, options, 'auth-server-url': authServerUrl,
+    realm,
+    redirectUri,
+    resource,
+    kcIdpHint,
+    options,
+    'auth-server-url': authServerUrl,
   } = conf;
   const responseType = 'code';
   const state = v4();
-  const url = `${getRealmURL(realm, authServerUrl)}/protocol/openid-connect/auth?${qs.stringify({
+  const url = `${getRealmURL(
+    realm,
+    authServerUrl,
+  )}/protocol/openid-connect/auth?${qs.stringify({
     scope,
     kc_idp_hint: kcIdpHint,
     redirect_uri: redirectUri,
@@ -58,7 +65,6 @@ const getLoginURL = (conf, scope) => {
   };
 };
 
-
 // TokensUtils
 const extractKeyFromJwtTokenPayload = (key, token) => {
   const tokenBody = token.split('.')[1];
@@ -69,7 +75,10 @@ const extractKeyFromJwtTokenPayload = (key, token) => {
 const isAccessTokenExpired = async () => {
   try {
     const { access_token: accessToken } = await TokenStorage.getTokens();
-    const tokenExpirationTime = extractKeyFromJwtTokenPayload('exp', accessToken);
+    const tokenExpirationTime = extractKeyFromJwtTokenPayload(
+      'exp',
+      accessToken,
+    );
     const now = Date.now() / 1000;
     return tokenExpirationTime > now;
   } catch (e) {
@@ -84,22 +93,28 @@ const isAccessTokenExpiredSync = ({ access_token: accessToken }) => {
   return tokenExpirationTime > now;
 };
 
-const willAccessTokenExpireInLessThan = async (seconds) => {
+const willAccessTokenExpireInLessThan = async seconds => {
   try {
     const { access_token: accessToken } = await TokenStorage.getTokens();
-    const tokenExpirationTime = extractKeyFromJwtTokenPayload('exp', accessToken);
+    const tokenExpirationTime = extractKeyFromJwtTokenPayload(
+      'exp',
+      accessToken,
+    );
     const now = Date.now() / 1000;
-    return (tokenExpirationTime - now) < seconds;
+    return tokenExpirationTime - now < seconds;
   } catch (e) {
     console.error(`Error in 'willAccessTokenExpireInLessThan()' call: ${e}`);
     return false;
   }
 };
 
-const willAccessTokenExpireInLessThanSync = (seconds, { access_token: accessToken }) => {
+const willAccessTokenExpireInLessThanSync = (
+  seconds,
+  { access_token: accessToken },
+) => {
   const tokenExpirationTime = extractKeyFromJwtTokenPayload('exp', accessToken);
   const now = Date.now() / 1000;
-  return (tokenExpirationTime - now) < seconds;
+  return tokenExpirationTime - now < seconds;
 };
 
 const TokensUtils = {
@@ -109,10 +124,4 @@ const TokensUtils = {
   willAccessTokenExpireInLessThanSync,
 };
 
-
-export {
-  TokensUtils,
-  decodeToken,
-  getRealmURL,
-  getLoginURL,
-};
+export { TokensUtils, decodeToken, getRealmURL, getLoginURL };
