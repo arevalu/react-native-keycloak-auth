@@ -1,18 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Keychain from 'react-native-keychain';
-import { TOKENS as TOKENS_KEY, CONFIG as CONFIG_KEY, CREDENTIALS } from './Constants';
-
+import {
+  TOKENS as TOKENS_KEY,
+  CONFIG as CONFIG_KEY,
+  CREDENTIALS,
+} from './constants';
 
 const TokenStorage = {
   saveCredentials: async ({ username, password }) => {
     await Keychain.setGenericPassword(username, password);
   },
 
-  saveConfiguration: async (conf) => {
+  saveConfiguration: async conf => {
     await AsyncStorage.setItem(CONFIG_KEY, JSON.stringify(conf));
   },
 
-  saveTokens: async (tokens) => {
+  saveTokens: async tokens => {
     await AsyncStorage.setItem(TOKENS_KEY, JSON.stringify(tokens));
   },
 
@@ -20,12 +23,12 @@ const TokenStorage = {
 
   getConfiguration: async () => {
     const conf = await AsyncStorage.getItem(CONFIG_KEY);
-    return (conf) ? JSON.parse(conf) : undefined;
+    return conf ? JSON.parse(conf) : undefined;
   },
 
   getTokens: async () => {
     const tokens = await AsyncStorage.getItem(TOKENS_KEY);
-    return (tokens) ? JSON.parse(tokens) : undefined;
+    return tokens ? JSON.parse(tokens) : undefined;
   },
 
   clearSession: async () => {

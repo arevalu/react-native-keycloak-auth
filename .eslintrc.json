@@ -1,6 +1,13 @@
 {
-  "parser": "babel-eslint",
-  "extends": "airbnb",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "babelrc": false,
+      "configFile": false,
+      "presets": ["@babel/preset-env"]
+    }
+  },
   "globals": {
     "fetch": true,
     "__DEV__": true
@@ -9,20 +16,37 @@
     "browser": true,
     "node": true
   },
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "react-native", 
+    "unicorn"
+  ],
   "rules": {
     "no-console": "off",
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "import/prefer-default-export": 0,
-    "react/prefer-stateless-function": 0,
-    "max-len": ["error",{ "code":120 }]
+    "max-len": ["error", { "code":120 }],
+
+    // Unicorn
+    "unicorn/no-unsafe-regex": "off",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "case": "kebabCase"
+      }
+    ]
   },
   "settings": {
-      "import/resolver": {
-          "node": {
-            "extensions": [".js", ".android.js", ".ios.js"]
-          }
-      }
-  },
-  "plugins": ["react", "react-native"]
+    "import/resolver": {
+        "node": {
+          "extensions": [".js", ".android.js", ".ios.js"]
+        }
+    }
+  }
 }

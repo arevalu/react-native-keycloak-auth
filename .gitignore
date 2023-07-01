@@ -1,4 +1,6 @@
+# Node modules
 node_modules
+
 .history
 .idea/
 
@@ -6,3 +8,9 @@ node_modules
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
+
+# MacOS
+.DS_Store
+
+# ESlint
+.eslintcache
