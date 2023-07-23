@@ -1,10 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import MMKVStorage, { STORAGE_KEYS } from './core/clients/mmkv/index';
 import * as Keychain from 'react-native-keychain';
-import {
-  TOKENS as TOKENS_KEY,
-  CONFIG as CONFIG_KEY,
-  CREDENTIALS,
-} from './constants';
 
 const TokenStorage = {
   saveCredentials: async ({ username, password }) => {
@@ -12,29 +7,35 @@ const TokenStorage = {
   },
 
   saveConfiguration: async conf => {
-    await AsyncStorage.setItem(CONFIG_KEY, JSON.stringify(conf));
+    await MMKVStorage.setItem(
+      STORAGE_KEYS.AUTH_CONFIG_KEY,
+      JSON.stringify(conf),
+    );
   },
 
   saveTokens: async tokens => {
-    await AsyncStorage.setItem(TOKENS_KEY, JSON.stringify(tokens));
+    await MMKVStorage.setItem(
+      STORAGE_KEYS.AUTH_TOKENS_KEY,
+      JSON.stringify(tokens),
+    );
   },
 
   getCredentials: () => Keychain.getGenericPassword(),
 
   getConfiguration: async () => {
-    const conf = await AsyncStorage.getItem(CONFIG_KEY);
+    const conf = await MMKVStorage.getItem(STORAGE_KEYS.AUTH_CONFIG_KEY);
     return conf ? JSON.parse(conf) : undefined;
   },
 
   getTokens: async () => {
-    const tokens = await AsyncStorage.getItem(TOKENS_KEY);
+    const tokens = await MMKVStorage.getItem(STORAGE_KEYS.AUTH_TOKENS_KEY);
     return tokens ? JSON.parse(tokens) : undefined;
   },
 
-  clearSession: async () => {
-    await AsyncStorage.removeItem(TOKENS_KEY);
-    await AsyncStorage.removeItem(CONFIG_KEY);
-    await AsyncStorage.removeItem(CREDENTIALS);
+  clearSession: () => {
+    MMKVStorage.removeItem(STORAGE_KEYS.AUTH_TOKENS_KEY);
+    MMKVStorage.removeItem(STORAGE_KEYS.AUTH_CONFIG_KEY);
+    MMKVStorage.removeItem(STORAGE_KEYS.AUTH_CREDENTIALS_KEY);
   },
 };
 
