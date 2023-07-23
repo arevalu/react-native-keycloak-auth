@@ -10,6 +10,7 @@ runs:
         node-version-file: .nvmrc
     
     - name: Setup yarn
+      shell: bash
       run: |
         corepack enable
         yarn set version 3.6.0
@@ -22,4 +23,5 @@ runs:
         cache: yarn
 
     - name: Install dependencies
+      shell: bash
       run: yarn install --immutable
