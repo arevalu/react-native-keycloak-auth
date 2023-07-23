@@ -1,0 +1,38 @@
+name: NPM Publish
+
+on: 
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  npm-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Yarn
+      uses: ./.github/actions/setup
+
+    - name: Build package
+      run: yarn pack
+
+    - name: Publish package to NPM
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_AUTOMATION_TOKEN }}
+      run: |
+        npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+        npm publish
+
+    - name: Get branch names
+      id: branch-name
+      uses: tj-actions/branch-names@v7
+      with:
+        strip_tag_prefix: 'v'
+
+    - name: Publish GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{steps.branch-name.outputs.tag}}
+        generate_release_notes: true

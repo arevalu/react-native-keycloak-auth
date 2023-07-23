@@ -1,0 +1,21 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        uses: ./.github/actions/setup
+
+      - name: Lint
+        run: yarn run lint
+
+      - name: Audit dependencies
+        uses: pragatheeswarans/yarn-audit-action@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
