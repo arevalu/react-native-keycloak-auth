@@ -2,10 +2,17 @@
   "name": "react-native-keycloak-auth",
   "version": "2.0.0",
   "description": "Functional React Native module for authentication between a client and the keycloak server.",
-  "main": "src/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "_postinstall": "husky install && yarn set version berry && yarn plugin import workspace-tools",
+    "prepack": "yarn clean-build && yarn build",
+    "build": "node esbuild.config.js",
     "check-updates": "npx npm-check-updates",
+    "clean-build": "rimraf dist",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx --max-warnings=0 --cache"
   },
   "repository": {
@@ -40,6 +47,7 @@
     "@commitlint/config-conventional": "17.6.7",
     "@react-native-async-storage/async-storage": "1.18.2",
     "base-64": "1.0.0",
+    "esbuild": "0.18.16",
     "eslint": "8.44.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.8.0",
@@ -55,6 +63,8 @@
     "query-string": "8.1.0",
     "react-native": "0.72.3",
     "react-native-keychain": "8.1.1",
+    "rimraf": "5.0.1",
+    "tiny-glob": "0.2.9",
     "uuid": "9.0.0"
   },
   "peerDependencies": {
