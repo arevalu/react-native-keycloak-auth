@@ -17,3 +17,7 @@ node_modules
 
 # ESlint
 .eslintcache
+
+# Generated output
+dist
+*.tgz
