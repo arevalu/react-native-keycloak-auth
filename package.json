@@ -37,7 +37,6 @@
     "@babel/preset-env": "7.22.5",
     "@commitlint/cli": "17.6.6",
     "@commitlint/config-conventional": "17.6.6",
-    "@react-native-async-storage/async-storage": "1.18.2",
     "base-64": "1.0.0",
     "eslint": "8.44.0",
     "eslint-config-airbnb": "19.0.4",
